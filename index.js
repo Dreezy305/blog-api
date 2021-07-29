@@ -6,15 +6,21 @@ const router = require("./app/router");
 
 const app = express();
 
-// const port = process.env.PORT || 5000;
+app.use(bodyParser.json());
 
 app.set("port", config.port);
 
 app.listen(app.get("port"), (err) => {
   if (err) console.log(error);
   console.log(`listening on ${app.get("port")}...`);
+  const db = mongoose.connect(config.db);
+  mongoose.connection.on("connected", () => {
+    console.log(`Mongo db connected ${db}`);
+  });
 });
 
 app.get("/", (req, res) => {
   res.send("The blog API goes here");
 });
+
+router(app);
