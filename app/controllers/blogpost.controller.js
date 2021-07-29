@@ -6,9 +6,14 @@ exports.publishPost = (req, res) => {
   const newBlogPost = new blogPostModel(req.body);
   newBlogPost.save((error, blogPostModel) => {
     if (error) {
-      res.status(400).json({
-        msg: "",
+      return res.status(400).json({
+        msg: "there was an error",
         error,
+      });
+    } else {
+      return res.status(200).json({
+        msg: " blop post successfully created",
+        blogPostModel,
       });
     }
   });
