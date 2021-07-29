@@ -34,6 +34,28 @@ app.get("/api/blogpost", (req, res) => {
   res.send(blogs);
 });
 
+// GET BLOG POSTS WITH PAGINATION
+function paginatedResults() {
+  return async (req, res, next) => {
+    const page = parseInt(req.query.page);
+    const limit = parseInt(req.query.limit);
+    const skipIndex = (page - 1) * limit;
+    const results = {};
+
+    try {
+      results.results = await Blogs.find()
+        .sort({ _id: 1 })
+        .limit(limit)
+        .skip(skipIndex)
+        .exec();
+      res.paginatedResults = results;
+      next();
+    } catch (e) {
+      res.status(400).json({ message: "Error Occured" });
+    }
+  };
+}
+
 // GET A SINGLE BLOG POST WITH ID REQUEST HANDLER
 app.get("/api/blogpost/:id", (req, res) => {
   const book = blogs.find((c) => c.id === parseInt(req.params.id));
