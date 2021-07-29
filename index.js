@@ -29,12 +29,12 @@ app.get("/", (req, res) => {
   res.send("The blog API goes here");
 });
 
-// GET ALL BLOG POSTS
+// GET ALL BLOG POSTS REQUEST HANDLER
 app.get("/api/blogpost", (req, res) => {
   res.send(blogs);
 });
 
-// GET A SINGLE BLOG POST WITH ID
+// GET A SINGLE BLOG POST WITH ID REQUEST HANDLER
 app.get("/api/blogpost/:id", (req, res) => {
   const book = blogs.find((c) => c.id === parseInt(req.params.id));
   if (!blogs)
@@ -46,7 +46,7 @@ app.get("/api/blogpost/:id", (req, res) => {
   res.send(book);
 });
 
-// CREATE A BLOG POST WITH ID
+// CREATE A BLOG POST WITH ID REQUEST HANDLER
 app.post("/api/blogpost", (req, res) => {
   const { error } = req.body;
   if (error) {
@@ -80,8 +80,25 @@ app.put("/api/blogpost/:id", (req, res) => {
       );
 
   blog.title = req.body.title;
-  // blog.description = req.body.description;
-  // blog.image = req.body.image;
-  // blog.body = req.body.body;
+  blog.description = req.body.description;
+  blog.image = req.body.image;
+  blog.body = req.body.body;
   res.send(blog);
+});
+
+// DELETE BLOG REQUEST HANDLER
+app.delete("/api/books/:id", (req, res) => {
+  const blog = blogs.find((c) => c.id === parseInt(req.params.id));
+  if (!blog) {
+    res
+      .status(404)
+      .send(
+        '<h2 style="font-family: Malgun Gothic; color: darkred;">Ooops... Cant find what you are looking for!</h2>'
+      );
+  }
+
+  const Index = blog.indexOf(blog);
+  blogs.splice(Index, 1);
+
+  res.send(blogs);
 });
