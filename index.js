@@ -32,3 +32,15 @@ app.get("/", (req, res) => {
 app.get("/api/blogposts", (req, res) => {
   res.send(blogs);
 });
+
+// get a single blog with the id
+app.get("/api/blogposts/:id", (req, res) => {
+  const book = blogs.find((c) => c.id === parseInt(req.params.id));
+  if (!blogs)
+    res
+      .status(404)
+      .send(
+        '<h2 style="font-family: Malgun Gothic; color: darkred;">Ooops... Cant find what you are looking for!</h2>'
+      );
+  res.send(book);
+});
