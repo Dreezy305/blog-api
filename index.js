@@ -2,45 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const config = require("./app/config");
+const blogs = require("./blogs");
+
 // const router = require("./app/router");
-
 // router(app);
-// mongoose.set('useUnifiedTopology': true);
-
-const blogs = [
-  {
-    id: 1,
-    title: "the G.O.A.T",
-    body: " some text goes here",
-    description: "This is a decription",
-    image: "image url goes here",
-    data: new Date(),
-  },
-  {
-    id: 2,
-    title: "the G.O.A.T",
-    body: " some text goes here",
-    description: "This is a decription",
-    image: "image url goes here",
-    data: new Date(),
-  },
-  {
-    id: 3,
-    title: "the G.O.A.T",
-    body: " some text goes here",
-    description: "This is a decription",
-    image: "image url goes here",
-    data: new Date(),
-  },
-  {
-    id: 5,
-    title: "the G.O.A.T",
-    body: " some text goes here",
-    description: "This is a decription",
-    image: "image url goes here",
-    data: new Date(),
-  },
-];
 
 const app = express();
 
