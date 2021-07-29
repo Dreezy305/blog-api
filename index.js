@@ -86,8 +86,8 @@ app.put("/api/blogpost/:id", (req, res) => {
   res.send(blog);
 });
 
-// DELETE BLOG REQUEST HANDLER
-app.delete("/api/books/:id", (req, res) => {
+// DELETE BLOG WITH ID REQUEST HANDLER
+app.delete("/api/blogpost/:id", (req, res) => {
   const blog = blogs.find((c) => c.id === parseInt(req.params.id));
   if (!blog) {
     res
