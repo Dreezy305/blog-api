@@ -35,4 +35,4 @@ const blogPostSchema = new Schema({
   },
 });
 
-module.exports = ("blogPost", blogPostSchema);
+module.exports = ("BlogPosts", blogPostSchema);
