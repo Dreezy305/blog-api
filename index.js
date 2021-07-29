@@ -29,12 +29,12 @@ app.get("/", (req, res) => {
   res.send("The blog API goes here");
 });
 
-app.get("/api/blogposts", (req, res) => {
+app.get("/api/blogpost", (req, res) => {
   res.send(blogs);
 });
 
 // get a single blog with the id
-app.get("/api/blogposts/:id", (req, res) => {
+app.get("/api/blogpost/:id", (req, res) => {
   const book = blogs.find((c) => c.id === parseInt(req.params.id));
   if (!blogs)
     res
@@ -46,7 +46,7 @@ app.get("/api/blogposts/:id", (req, res) => {
 });
 
 // create a blog post
-app.post("/api/books", (req, res) => {
+app.post("/api/blogpost", (req, res) => {
   const { error } = req.body;
   if (error) {
     res
@@ -58,6 +58,10 @@ app.post("/api/books", (req, res) => {
     const blog = {
       id: blogs.length + 1,
       title: req.body.title,
+      body: req.body.body,
+      description: req.body.description,
+      image: req.body.image,
+      date: req.body.date,
     };
     blogs.push(blog);
     res.send(blog);

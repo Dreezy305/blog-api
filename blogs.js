@@ -24,7 +24,7 @@ const blogs = [
     date: new Date(),
   },
   {
-    id: 5,
+    id: 4,
     title: "the G.O.A.T",
     body: " some text goes here",
     description: "This is a decription",
