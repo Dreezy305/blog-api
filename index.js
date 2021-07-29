@@ -29,11 +29,12 @@ app.get("/", (req, res) => {
   res.send("The blog API goes here");
 });
 
+// GET ALL BLOG POSTS
 app.get("/api/blogpost", (req, res) => {
   res.send(blogs);
 });
 
-// get a single blog with the id
+// GET A SINGLE BLOG POST WITH ID
 app.get("/api/blogpost/:id", (req, res) => {
   const book = blogs.find((c) => c.id === parseInt(req.params.id));
   if (!blogs)
@@ -45,7 +46,7 @@ app.get("/api/blogpost/:id", (req, res) => {
   res.send(book);
 });
 
-// create a blog post
+// CREATE A BLOG POST WITH ID
 app.post("/api/blogpost", (req, res) => {
   const { error } = req.body;
   if (error) {
@@ -66,4 +67,27 @@ app.post("/api/blogpost", (req, res) => {
     blogs.push(blog);
     res.send(blog);
   }
+});
+
+// UPDATE BLOG POST REQUEST HANDLERS
+app.put("/api/blogpost/:id", (req, res) => {
+  const blog = blogs.find((c) => c.id === parseInt(req.params.id));
+  if (!blog)
+    res
+      .status(404)
+      .send(
+        '<h2 style="font-family: Malgun Gothic; color: darkred;">Not Found!! </h2>'
+      );
+
+  const { error } = validateBook(req.body); //validate book is a function that checks fo whether the book is present or not
+  if (error) {
+    res.status(400).send(error.details[0].message);
+    return;
+  }
+  blog.title = req.body.title;
+  blog.description = req.body.description;
+  blog.image = req.body.image;
+  blog.body = req.body.body;
+
+  res.send(blog);
 });
