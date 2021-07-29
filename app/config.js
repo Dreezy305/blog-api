@@ -5,4 +5,4 @@ const config = {
   test_db: "mongodb://localhost/myblog_test",
 };
 
-module.exports = { config };
+module.exports = config;

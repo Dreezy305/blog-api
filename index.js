@@ -9,8 +9,9 @@ const app = express();
 
 app.set("port", config.port);
 
-app.listen(app.get("port"), () => {
-  console.log(`listening on port ${app.get("port)}....`);
+app.listen(app.get("port"), (err) => {
+  if (err) console.log(error);
+  console.log(`listening on ${app.get("port")}...`);
 });
 
 app.get("/", (req, res) => {
