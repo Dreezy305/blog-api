@@ -29,4 +29,10 @@ const blogPostSchema = new Schema({
     required: true,
     unique: true,
   },
+  tags: [String],
+  updated: {
+    type: Date,
+  },
 });
+
+module.exports = ("blogPost", blogPostSchema);
