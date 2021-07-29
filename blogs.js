@@ -5,7 +5,7 @@ const blogs = [
     body: " some text goes here",
     description: "This is a decription",
     image: "image url goes here",
-    data: new Date(),
+    date: new Date(),
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ const blogs = [
     body: " some text goes here",
     description: "This is a decription",
     image: "image url goes here",
-    data: new Date(),
+    date: new Date(),
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ const blogs = [
     body: " some text goes here",
     description: "This is a decription",
     image: "image url goes here",
-    data: new Date(),
+    date: new Date(),
   },
   {
     id: 5,
@@ -29,7 +29,7 @@ const blogs = [
     body: " some text goes here",
     description: "This is a decription",
     image: "image url goes here",
-    data: new Date(),
+    date: new Date(),
   },
 ];
 

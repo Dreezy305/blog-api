@@ -44,3 +44,22 @@ app.get("/api/blogposts/:id", (req, res) => {
       );
   res.send(book);
 });
+
+// create a blog post
+app.post("/api/books", (req, res) => {
+  const { error } = req.body;
+  if (error) {
+    res
+      .status(404)
+      .send(
+        '<h2 style="font-family: Malgun Gothic; color: darkred;">Ooops... Cant find what you are looking for!</h2>'
+      );
+  } else {
+    const blog = {
+      id: blogs.length + 1,
+      title: req.body.title,
+    };
+    blogs.push(blog);
+    res.send(blog);
+  }
+});
