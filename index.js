@@ -35,6 +35,10 @@ app.get("/api/blogpost", (req, res) => {
 });
 
 // GET BLOG POSTS WITH PAGINATION
+app.get("/api/blogpost", paginatedResults(), (req, res) => {
+  res.json(res.paginatedResults);
+});
+
 function paginatedResults() {
   return async (req, res, next) => {
     const page = parseInt(req.query.page);
@@ -44,7 +48,7 @@ function paginatedResults() {
 
     try {
       results.results = await Blogs.find()
-        .sort({ _id: 1 })
+        .sort({ id: 1 })
         .limit(limit)
         .skip(skipIndex)
         .exec();
