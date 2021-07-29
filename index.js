@@ -96,9 +96,7 @@ app.delete("/api/blogpost/:id", (req, res) => {
         '<h2 style="font-family: Malgun Gothic; color: darkred;">Ooops... Cant find what you are looking for!</h2>'
       );
   }
-
-  const Index = blog.indexOf(blog);
+  const Index = blogs.indexOf(blog);
   blogs.splice(Index, 1);
-
-  res.send(blogs);
+  res.send(blog);
 });
