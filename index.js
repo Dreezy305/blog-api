@@ -2,9 +2,45 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const config = require("./app/config");
-const router = require("./app/router");
+// const router = require("./app/router");
 
+// router(app);
 // mongoose.set('useUnifiedTopology': true);
+
+const blogs = [
+  {
+    id: 1,
+    title: "the G.O.A.T",
+    body: " some text goes here",
+    description: "This is a decription",
+    image: "image url goes here",
+    data: new Date(),
+  },
+  {
+    id: 2,
+    title: "the G.O.A.T",
+    body: " some text goes here",
+    description: "This is a decription",
+    image: "image url goes here",
+    data: new Date(),
+  },
+  {
+    id: 3,
+    title: "the G.O.A.T",
+    body: " some text goes here",
+    description: "This is a decription",
+    image: "image url goes here",
+    data: new Date(),
+  },
+  {
+    id: 5,
+    title: "the G.O.A.T",
+    body: " some text goes here",
+    description: "This is a decription",
+    image: "image url goes here",
+    data: new Date(),
+  },
+];
 
 const app = express();
 
@@ -24,27 +60,10 @@ app.listen(app.get("port"), (err) => {
   });
 });
 
-// if (process.env.NODE_ENV === "test") {
-//   app.set("port", config.test_port);
-//   app.listen(app.get("port"), (err) => {
-//     if (err) console.error(err);
-//     console.log(`Server listening on port$ {app.get('port')}...`);
-//     const db = mongoose.connect(config.test_db);
-//   });
-// } else {
-//   app.set("port", config.port);
-//   app.listen(app.get("port"), (err) => {
-//     if (err) console.error(err);
-//     console.log(`Server listening on port ${app.get("port")}...`);
-//     const db = mongoose.connect(config.db);
-//     mongoose.connection.on("connected", () => {
-//       console.log(`Mongoose connected to ${config.db}`);
-//     });
-//   });
-// }
-
 app.get("/", (req, res) => {
   res.send("The blog API goes here");
 });
 
-router(app);
+app.get("/api/blogposts", (req, res) => {
+  res.send(blogs);
+});
