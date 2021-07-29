@@ -79,15 +79,9 @@ app.put("/api/blogpost/:id", (req, res) => {
         '<h2 style="font-family: Malgun Gothic; color: darkred;">Not Found!! </h2>'
       );
 
-  const { error } = validateBook(req.body); //validate book is a function that checks fo whether the book is present or not
-  if (error) {
-    res.status(400).send(error.details[0].message);
-    return;
-  }
   blog.title = req.body.title;
-  blog.description = req.body.description;
-  blog.image = req.body.image;
-  blog.body = req.body.body;
-
+  // blog.description = req.body.description;
+  // blog.image = req.body.image;
+  // blog.body = req.body.body;
   res.send(blog);
 });
