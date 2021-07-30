@@ -1,9 +1,9 @@
 const express = require("express");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const config = require("./app/config");
 const blogs = require("./blogs");
-const commentModel = require("./app/models/comment.model");
+const Comment = require("./app/models/comment.model");
 
 // const router = require("./app/router");
 // router(app);
@@ -129,12 +129,13 @@ app.delete("/api/blogpost/:id", (req, res) => {
 });
 
 // ADD COMMENTS REUEST HANDLER
-app.post("/api/blogpost/addComment", (req, res) => {
+app.post("/api/blogpost/addComment/:id", (req, res) => {
   // get blog id
   const blog = blogs.find((c) => c.id === parseInt(req.params.id));
   // check if the blog id is correct, then add comment to it
   if (blog) {
-    comment = new Comments(req.body);
+    const { id } = req.params;
+    comment = new Comment(req.body);
     comment.save((error, commentModel) => {
       if (error) {
         return res.status(400).json({
@@ -142,9 +143,13 @@ app.post("/api/blogpost/addComment", (req, res) => {
           error,
         });
       } else {
+        comment.id = req.body.id;
+        comment.content = req.body.content;
+
         return res.status(200).json({
-          msg: " comment successfully created",
-          commentModel,
+          msg: `comment successfully created comment with id ${id}`,
+          // id: commentModel.id,
+          // content: commentModel.content,
         });
       }
     });
