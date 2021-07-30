@@ -130,5 +130,6 @@ app.delete("/api/blogpost/:id", (req, res) => {
 
 // ADD COMMENTS REUEST HANDLER
 app.post("/api/blogpost", (req, res) => {
-  const comment = blogs.find((c) => c.id === parseInt(req.params.id));
+  // get blog id
+  const blog = blogs.find((c) => c.id === parseInt(req.params.id));
 });
