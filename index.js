@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const config = require("./app/config");
 const blogs = require("./blogs");
-const Comments = require("./app/models/comment.model");
+const commentModel = require("./app/models/comment.model");
 
 // const router = require("./app/router");
 // router(app);
@@ -129,7 +129,24 @@ app.delete("/api/blogpost/:id", (req, res) => {
 });
 
 // ADD COMMENTS REUEST HANDLER
-app.post("/api/blogpost", (req, res) => {
+app.post("/api/blogpost/addComment", (req, res) => {
   // get blog id
   const blog = blogs.find((c) => c.id === parseInt(req.params.id));
+  // check if the blog id is correct, then add comment to it
+  if (blog) {
+    comment = new Comments(req.body);
+    comment.save((error, commentModel) => {
+      if (error) {
+        return res.status(400).json({
+          msg: "there was an error",
+          error,
+        });
+      } else {
+        return res.status(200).json({
+          msg: " comment successfully created",
+          commentModel,
+        });
+      }
+    });
+  }
 });
