@@ -4,11 +4,12 @@ const ObjectId = Schema.ObjectId;
 
 // creating blop post schema
 const commentSchema = new Schema({
-  id: ObjectId,
+  blogId: ObjectId,
   content: {
     type: String,
     required: true,
   },
+  createdAt: Date,
 });
 
-module.exports = ("Comments", commentSchema);
+module.exports = mongoose.model("Comments", commentSchema);
