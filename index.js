@@ -128,21 +128,22 @@ app.delete("/api/blogpost/:id", (req, res) => {
 });
 
 // ADD COMMENTS REUEST HANDLER
-app.post("/api/blogpost/addComment", (req, res) => {
-  // get blog id
-  var commentModel = new Comment();
-  commentModel.bolgId = req.body.blogId;
-  commnetModel.content = req.body.content;
-  commentModel.createdAt = new Date();
+// app.post("/api/blogpost/addComment", (req, res) => {
+//   // get blog id
+//   var commentModel = new Comment();
+//   commentModel.bolgId = req.body.blogId;
+//   commnetModel.content = req.body.content;
+//   commentModel.createdAt = new Date();
 
-  commentModel.save((error) => {
-    if (error) {
-      res.status(400).send("error occured");
-    }
-    res.redirect("/api/blogpost");
-  });
-});
+//   commentModel.save((error) => {
+//     if (error) {
+//       res.status(400).send("error occured");
+//     }
+//     res.redirect("/api/blogpost");
+//   });
+// });
 
+// get comments by id
 app.get("/api/blogpost/getComment/:id", (req, res) => {
   const comment = commentModel.find(req.params.blogId);
 

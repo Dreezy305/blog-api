@@ -29,10 +29,14 @@ const blogPostSchema = new Schema({
     required: true,
     unique: true,
   },
-  comments: [{ content: String, created: new Date() }],
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comments" }],
   updated: {
     type: string,
   },
+});
+
+postSchema.virtual("url").get(() => {
+  return "/api/blogpost/" + this._id;
 });
 
 module.exports = mongoose.model("BlogPosts", blogPostSchema);

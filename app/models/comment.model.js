@@ -10,6 +10,10 @@ const commentSchema = new Schema({
     required: true,
   },
   createdAt: Date,
+  post: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "BlogPosts",
+  },
 });
 
 module.exports = mongoose.model("Comments", commentSchema);
