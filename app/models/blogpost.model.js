@@ -29,9 +29,9 @@ const blogPostSchema = new Schema({
     required: true,
     unique: true,
   },
-  tags: [String],
+  comment: [String],
   updated: {
-    type: Date,
+    type: string,
   },
 });
 

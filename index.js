@@ -10,7 +10,7 @@ const Comments = require("./app/models/comment.model");
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.set("port", config.port);
 
@@ -129,16 +129,6 @@ app.delete("/api/blogpost/:id", (req, res) => {
 });
 
 // ADD COMMENTS REUEST HANDLER
-app.post("/api/addComment", (req, res) => {
-  comment = new Comments(req.body);
-  comment.save((err, savedComment) => {
-    if (error) {
-      res.status(404).send("there was an error");
-    } else {
-      res.json({
-        id: savedComment.id,
-        content: savedComment.content,
-      });
-    }
-  });
+app.post("/api/blogpost", (req, res) => {
+  const comment = blogs.find((c) => c.id === parseInt(req.params.id));
 });
