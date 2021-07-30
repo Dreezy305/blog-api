@@ -5,7 +5,7 @@ const ObjectId = Schema.ObjectId;
 // creating blop post schema
 const commentSchema = new Schema({
   id: ObjectId,
-  body: {
+  content: {
     type: String,
     required: true,
   },
