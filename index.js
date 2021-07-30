@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const config = require("./app/config");
 const blogs = require("./blogs");
+const comments = require("./app/models/comment.model");
 
 // const router = require("./app/router");
 // router(app);
