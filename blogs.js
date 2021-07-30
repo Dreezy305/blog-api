@@ -25,9 +25,9 @@ const blogs = [
   },
   {
     id: 4,
-    title: "the G.O.A.T",
-    body: " some text goes here",
-    description: "This is a decription",
+    title: "it will be blinded",
+    body: "rejects any and often experience pleasure  mānsit lot of things to take to provide fault  nquir here the opportunity to do the right bound pain  nFor the pleasure of the outdoor",
+    description: "to provide or to reject the blind are welcome option to find",
     image: "image url goes here",
     date: new Date(),
   },
