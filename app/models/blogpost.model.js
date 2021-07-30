@@ -29,7 +29,7 @@ const blogPostSchema = new Schema({
     required: true,
     unique: true,
   },
-  comment: [{ content: String, created: new Date() }],
+  comments: [{ content: String, created: new Date() }],
   updated: {
     type: string,
   },

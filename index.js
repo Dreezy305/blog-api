@@ -131,24 +131,17 @@ app.delete("/api/blogpost/:id", (req, res) => {
 // ADD COMMENTS REUEST HANDLER
 app.post("/api/blogpost/addComment", (req, res) => {
   // get blog id
-  const blog = blogs.find((c) => c.id === parseInt(req.params.id));
-  // check if the blog id is correct, then add comment to it
-  if (blog) {
-    const { id } = req.params;
-    comment = new Comment(req.body);
-    comment.save((error, commentModel) => {
+  blogs.findById(req.body.id, (article) => {
+    var comment = {
+      content: req.body.content,
+      created: new Date(),
+    };
+    article.comments.unshift(comment);
+    article.save((error) => {
       if (error) {
-        return res.status(400).json({
-          msg: "there was an error",
-          error,
-        });
-      } else {
-        return res.status(200).json({
-          msg: `comment successfully created comment with id ${id}`,
-          id: req.body.id,
-          content: req.body.content,
-        });
+        res.status(400).send("error occured");
       }
+      res.redirect("/api/blogpost");
     });
-  }
+  });
 });
