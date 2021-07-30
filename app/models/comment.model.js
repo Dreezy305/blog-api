@@ -11,4 +11,4 @@ const commentSchema = new Schema({
   },
 });
 
-module.exports = ("comments", commentSchema);
+module.exports = ("Comments", commentSchema);

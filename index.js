@@ -129,7 +129,7 @@ app.delete("/api/blogpost/:id", (req, res) => {
 });
 
 // ADD COMMENTS REUEST HANDLER
-app.post("/api/blogpost/addComment/:id", (req, res) => {
+app.post("/api/blogpost/addComment", (req, res) => {
   // get blog id
   const blog = blogs.find((c) => c.id === parseInt(req.params.id));
   // check if the blog id is correct, then add comment to it
@@ -143,13 +143,10 @@ app.post("/api/blogpost/addComment/:id", (req, res) => {
           error,
         });
       } else {
-        comment.id = req.body.id;
-        comment.content = req.body.content;
-
         return res.status(200).json({
           msg: `comment successfully created comment with id ${id}`,
-          // id: commentModel.id,
-          // content: commentModel.content,
+          id: req.body.id,
+          content: req.body.content,
         });
       }
     });
