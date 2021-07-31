@@ -91,8 +91,8 @@ app.post("/api/blogposts", (req, res) => {
 });
 
 // UPDATE BLOG POST REQUEST HANDLERS
-app.put("/api/blogpost/:id", (req, res) => {
-  const blog = blogs.find((c) => c.id === parseInt(req.params.id));
+app.put("/api/blogposts/:id", async (req, res) => {
+  const blog = await blogPostModel.findById(req.params.id);
   if (!blog)
     res
       .status(404)
@@ -108,8 +108,8 @@ app.put("/api/blogpost/:id", (req, res) => {
 });
 
 // DELETE BLOG WITH ID REQUEST HANDLER
-app.delete("/api/blogpost/:id", (req, res) => {
-  const blog = blogs.find((c) => c.id === parseInt(req.params.id));
+app.delete("/api/blogposts/:id", async (req, res) => {
+  const blog = await blogPostModel.findById(req.params.id);
   if (!blog) {
     res
       .status(404)
@@ -117,8 +117,8 @@ app.delete("/api/blogpost/:id", (req, res) => {
         '<h2 style="font-family: Malgun Gothic; color: darkred;">Ooops... Cant find what you are looking for!</h2>'
       );
   }
-  const Index = blogs.indexOf(blog);
-  blogs.splice(Index, 1);
+  const Index = blogPostModel.indexOf(blog);
+  blogPostModel.splice(Index, 1);
   res.send(blog);
 });
 
