@@ -153,11 +153,12 @@ app.post("/api/blogpost/:id/addComment", (req, res) => {
     createdAt: new Date(),
     post: id,
   });
-  comment.save();
+  await comment.save();
 
   const postRelated = blogPost.findById(id);
   postRelated.comments.push(comment);
-  postRelated.save((error) => {
+
+  await postRelated.save((error) => {
     if (error) {
       return res.status(400).send("there was an error");
     }
