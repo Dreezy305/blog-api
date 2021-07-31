@@ -110,7 +110,7 @@ app.put("/api/blogposts/:id", async (req, res) => {
 
 // DELETE BLOG WITH ID REQUEST HANDLER
 app.delete("/api/blogposts/:id", async (req, res) => {
-  const blog = await blogPostModel.findById(req.params.id);
+  const blog = await comment.findById(req.params.id);
   if (!blog) {
     res
       .status(404)
@@ -118,8 +118,8 @@ app.delete("/api/blogposts/:id", async (req, res) => {
         '<h2 style="font-family: Malgun Gothic; color: darkred;">Ooops... Cant find what you are looking for!</h2>'
       );
   }
-  const Index = blog.indexOf(blog);
-  blogPostModel.splice(Index, 1);
+  comment.remove();
+
   res.send(blog);
 });
 
