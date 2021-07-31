@@ -1,14 +1,16 @@
 const express = require("express");
+const cors = require("cors");
 // const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const config = require("./app/config");
 const blogs = require("./blogs");
 const Comment = require("./app/models/comment.model");
-const blogPost = require("./app/models/blogpost.model");
-// const router = require("./app/router");
-// router(app);
+// const blogPost = require("./app/models/blogpost.model");
+// const router =
+const blogPostModel = require("./app/models/blogpost.model");
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 
@@ -30,14 +32,11 @@ app.get("/", (req, res) => {
   res.send("The blog API goes here");
 });
 
-// GET ALL BLOG POSTS REQUEST HANDLER
-app.get("/api/blogpost", (req, res) => {
-  res.send(blogs);
-});
-
-// GET BLOG POSTS WITH PAGINATION
-app.get("/api/blogpost", paginatedResults(), (req, res) => {
-  res.json(res.paginatedResults);
+// GET BLOG POSTS
+app.get("/api/blogposts", async (req, res) => {
+  const blogPosts = await blogPostModel.find();
+  console.log(blogPosts);
+  res.json(blogPosts);
 });
 
 function paginatedResults() {
@@ -62,38 +61,33 @@ function paginatedResults() {
 }
 
 // GET A SINGLE BLOG POST WITH ID REQUEST HANDLER
-app.get("/api/blogpost/:id", (req, res) => {
-  const book = blogs.find((c) => c.id === parseInt(req.params.id));
-  if (!blogs)
+app.get("/api/blogposts/:id", async (req, res) => {
+  const blog = await blogPostModel.findById(req.params.id);
+  if (!blog)
     res
       .status(404)
       .send(
         '<h2 style="font-family: Malgun Gothic; color: darkred;">Ooops... Cant find what you are looking for!</h2>'
       );
-  res.send(book);
+  res.send(blog);
 });
 
 // CREATE A BLOG POST WITH ID REQUEST HANDLER
-app.post("/api/blogpost", (req, res) => {
-  const { error } = req.body;
-  if (error) {
-    res
-      .status(404)
-      .send(
-        '<h2 style="font-family: Malgun Gothic; color: darkred;">Ooops... Cant find what you are looking for!</h2>'
-      );
-  } else {
-    const blog = {
-      id: blogs.length + 1,
-      title: req.body.title,
-      body: req.body.body,
-      description: req.body.description,
-      image: req.body.image,
-      date: req.body.date,
-    };
-    blogs.push(blog);
-    res.send(blog);
-  }
+app.post("/api/blogposts", (req, res) => {
+  const newBlogPost = new blogPostModel(req.body);
+  newBlogPost.save((error, blogPostModel) => {
+    if (error) {
+      return res.status(400).json({
+        msg: "there was an error",
+        error,
+      });
+    } else {
+      return res.status(200).json({
+        msg: " blop post successfully created",
+        blogPostModel,
+      });
+    }
+  });
 });
 
 // UPDATE BLOG POST REQUEST HANDLERS
@@ -153,15 +147,15 @@ app.post("/api/blogpost/:id/addComment", (req, res) => {
     createdAt: new Date(),
     post: id,
   });
-  await comment.save();
+  comment.save();
 
   const postRelated = blogPost.findById(id);
   postRelated.comments.push(comment);
 
-  await postRelated.save((error) => {
+  postRelated.save((error) => {
     if (error) {
       return res.status(400).send("there was an error");
     }
-    res.redirect("/");
+    // res.redirect("/");
   });
 });

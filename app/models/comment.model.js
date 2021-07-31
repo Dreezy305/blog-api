@@ -4,13 +4,13 @@ const ObjectId = Schema.ObjectId;
 
 // creating blop post schema
 const commentSchema = new Schema({
-  // blogId: ObjectId,
+  id: ObjectId,
   content: {
     type: String,
     required: true,
   },
-  createdAt: Date,
-  post: {
+  createdAt: { type: Date, default: Date.now() },
+  postId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "BlogPosts",
   },

@@ -16,23 +16,13 @@ const blogPostSchema = new Schema({
   image: {
     type: String,
     required: true,
-    unique: true,
   },
   date: { type: Date, default: Date.now },
   description: {
     type: String,
     required: true,
-    unique: true,
   },
-  url: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comments" }],
-  updated: {
-    type: String,
-  },
+  updated: { type: Date },
 });
 
 // blogPostSchema.virtual("url").get(() => {
