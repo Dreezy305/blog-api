@@ -31,12 +31,12 @@ const blogPostSchema = new Schema({
   },
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comments" }],
   updated: {
-    type: string,
+    type: String,
   },
 });
 
-postSchema.virtual("url").get(() => {
-  return "/api/blogpost/" + this._id;
-});
+// blogPostSchema.virtual("url").get(() => {
+//   return "/api/blogpost/" + this.id;
+// });
 
 module.exports = mongoose.model("BlogPosts", blogPostSchema);

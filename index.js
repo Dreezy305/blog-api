@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const config = require("./app/config");
 const blogs = require("./blogs");
 const Comment = require("./app/models/comment.model");
+const blogPost = require("./app/models/blogpost.model");
 // const router = require("./app/router");
 // router(app);
 
@@ -143,12 +144,23 @@ app.delete("/api/blogpost/:id", (req, res) => {
 //   });
 // });
 
-// get comments by id
-app.get("/api/blogpost/getComment/:id", (req, res) => {
-  const comment = commentModel.find(req.params.blogId);
+// create comments by id
+app.post("/api/blogpost/:id/addComment", (req, res) => {
+  const { id } = req.params.id;
+  const comment = new Comment({
+    // blogId: req.body.blogId,
+    content: req.body.content,
+    createdAt: new Date(),
+    post: id,
+  });
+  comment.save();
 
-  if (!comment) {
-    res.status(400).send("error here");
-  }
-  res.send(commentModel);
+  const postRelated = blogPost.findById(id);
+  postRelated.comments.push(comment);
+  postRelated.save((error) => {
+    if (error) {
+      return res.status(400).send("there was an error");
+    }
+    res.redirect("/");
+  });
 });
