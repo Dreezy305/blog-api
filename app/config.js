@@ -1,6 +1,6 @@
 const config = {
   port: process.env.PORT || 5000,
-  db: "mongodb+srv://dreezy305:Olamide440@cluster0.c83oy.mongodb.net/blogPost?retryWrites=true&w=majority",
+  db: process.env.DATABASE_URL,
   // test_port: 4242,
   // test_db: "mongodb://localhost/myblog_test",
 };

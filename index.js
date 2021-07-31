@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 // const bodyParser = require("body-parser");
@@ -117,26 +118,10 @@ app.delete("/api/blogposts/:id", async (req, res) => {
         '<h2 style="font-family: Malgun Gothic; color: darkred;">Ooops... Cant find what you are looking for!</h2>'
       );
   }
-  const Index = blogPostModel.indexOf(blog);
+  const Index = blog.indexOf(blog);
   blogPostModel.splice(Index, 1);
   res.send(blog);
 });
-
-// ADD COMMENTS REUEST HANDLER
-// app.post("/api/blogpost/addComment", (req, res) => {
-//   // get blog id
-//   var commentModel = new Comment();
-//   commentModel.bolgId = req.body.blogId;
-//   commnetModel.content = req.body.content;
-//   commentModel.createdAt = new Date();
-
-//   commentModel.save((error) => {
-//     if (error) {
-//       res.status(400).send("error occured");
-//     }
-//     res.redirect("/api/blogpost");
-//   });
-// });
 
 // create comments by id
 app.post("/api/blogpost/:id/addComment", (req, res) => {
