@@ -22,6 +22,7 @@ const blogPostSchema = new Schema({
     type: String,
     required: true,
   },
+  tags: { type: [String], index: true },
   updated: { type: Date },
 });
 
